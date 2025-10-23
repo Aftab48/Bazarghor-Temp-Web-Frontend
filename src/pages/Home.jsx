@@ -163,7 +163,7 @@ const Home = () => {
           fontSize: '0.9rem'
         }}>
           <div style={{ marginBottom: '0.5rem' }}>
-            <strong style={{ color: '#cbd5e0' }}>Base URL:</strong> http://localhost:5000/api
+            <strong style={{ color: '#cbd5e0' }}>Base URL:</strong> https://private-bazarghor-backend-for-testing-production.up.railway.app/api
           </div>
           <div style={{ marginBottom: '0.5rem' }}>
             <strong style={{ color: '#cbd5e0' }}>Admin:</strong> /api/admin

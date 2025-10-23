@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL - update this based on your backend server
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://private-bazarghor-backend-for-testing-production.up.railway.app/api';
 
 // Create axios instance with default config
 const apiClient = axios.create({
