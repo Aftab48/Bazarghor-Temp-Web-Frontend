@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
-import Select from '../../components/Select';
 import Button from '../../components/Button';
 import { api } from '../../config/api';
 
@@ -12,13 +11,7 @@ const CustomerRegister = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    mobNo: '',
-    email: '',
-    gender: '',
-    dob: ''
-  });
-  const [files, setFiles] = useState({
-    profilePicture: null
+    mobNo: ''
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -27,13 +20,6 @@ const CustomerRegister = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    });
-  };
-
-  const handleFileChange = (e) => {
-    setFiles({
-      ...files,
-      [e.target.name]: e.target.files[0]
     });
   };
 
@@ -49,16 +35,6 @@ const CustomerRegister = () => {
       const fullName = `${formData.firstName} ${formData.lastName}`.trim();
       formDataToSend.append('fullName', fullName);
       formDataToSend.append('mobNo', formData.mobNo);
-      
-      // Append other optional fields
-      if (formData.email) formDataToSend.append('email', formData.email);
-      if (formData.gender) formDataToSend.append('gender', formData.gender);
-      if (formData.dob) formDataToSend.append('dob', formData.dob);
-
-      // Append files
-      if (files.profilePicture) {
-        formDataToSend.append('profilePicture', files.profilePicture);
-      }
 
       const response = await api.customer.register(formDataToSend);
       
@@ -115,43 +91,6 @@ const CustomerRegister = () => {
               onChange={handleChange}
               placeholder="1234567890"
               required
-            />
-
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="customer@example.com"
-            />
-
-            <Select
-              label="Gender"
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              options={[
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
-                { value: 'other', label: 'Other' }
-              ]}
-            />
-
-            <Input
-              label="Date of Birth"
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Profile Picture"
-              type="file"
-              name="profilePicture"
-              onChange={handleFileChange}
-              accept="image/*"
             />
 
             {message.text && (

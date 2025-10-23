@@ -36,15 +36,23 @@ const AdminLogin = () => {
         
         // Store auth data
         if (response.data.data?.token) {
+          const userData = {
+            id: response.data.data.id,
+            email: response.data.data.email,
+            mobNo: response.data.data.mobNo,
+            name: response.data.data.name,
+            roles: response.data.data.roles
+          };
+          
           setAuthData(
             response.data.data.token,
-            response.data.data.user,
+            userData,
             response.data.data.refreshToken
           );
         }
 
         setTimeout(() => {
-          navigate('/');
+          navigate('/admin/dashboard');
         }, 1000);
       }
     } catch (error) {

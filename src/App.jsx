@@ -5,6 +5,7 @@ import Home from './pages/Home';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 // Customer Pages
 import CustomerRegister from './pages/customer/CustomerRegister';
@@ -37,6 +38,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         {/* Customer Routes */}
         <Route path="/customer/register" element={<CustomerRegister />} />

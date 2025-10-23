@@ -15,7 +15,6 @@ const VendorRegister = () => {
     mobNo: '',
     email: '',
     gender: '',
-    dob: '',
     shopname: '',
     shopaddress: '',
     pincode: '',
@@ -149,14 +148,6 @@ const VendorRegister = () => {
                 { value: 'female', label: 'Female' },
                 { value: 'other', label: 'Other' }
               ]}
-            />
-
-            <Input
-              label="Date of Birth"
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
             />
 
             <hr style={{ margin: '2rem 0', border: 'none', borderTop: '2px solid #e2e8f0' }} />

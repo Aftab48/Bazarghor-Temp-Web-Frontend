@@ -10,7 +10,7 @@ const Home = () => {
       color: '#667eea',
       items: [
         { path: '/admin/login', label: 'Admin Login', method: 'POST' },
-        { path: '/admin/logout', label: 'Admin Logout', method: 'POST' },
+        { path: '/admin/dashboard', label: 'Admin Dashboard', method: 'GET' },
       ]
     },
     {
