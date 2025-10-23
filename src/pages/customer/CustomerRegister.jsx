@@ -45,12 +45,15 @@ const CustomerRegister = () => {
     try {
       const formDataToSend = new FormData();
       
-      // Append all form fields
-      Object.keys(formData).forEach(key => {
-        if (formData[key]) {
-          formDataToSend.append(key, formData[key]);
-        }
-      });
+      // Combine firstName and lastName into fullName for backend
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+      formDataToSend.append('fullName', fullName);
+      formDataToSend.append('mobNo', formData.mobNo);
+      
+      // Append other optional fields
+      if (formData.email) formDataToSend.append('email', formData.email);
+      if (formData.gender) formDataToSend.append('gender', formData.gender);
+      if (formData.dob) formDataToSend.append('dob', formData.dob);
 
       // Append files
       if (files.profilePicture) {

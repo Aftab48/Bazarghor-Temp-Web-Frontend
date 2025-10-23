@@ -142,11 +142,16 @@ const CustomerAddress = () => {
             </div>
           )}
 
-          {!showForm && (
-            <Button onClick={() => setShowForm(true)} style={{ marginBottom: '2rem' }}>
-              + Add New Address
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+            <Button onClick={() => navigate('/customer/profile')} variant="secondary">
+              ← Back to Profile
             </Button>
-          )}
+            {!showForm && (
+              <Button onClick={() => setShowForm(true)}>
+                + Add New Address
+              </Button>
+            )}
+          </div>
 
           {showForm && (
             <form onSubmit={handleSubmit} style={{ marginBottom: '2rem', padding: '1.5rem', background: '#f7fafc', borderRadius: '8px' }}>
