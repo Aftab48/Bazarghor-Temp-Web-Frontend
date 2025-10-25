@@ -15,6 +15,7 @@ const DeliveryPartnerRegister = () => {
     mobNo: '',
     email: '',
     gender: '',
+    vehicleType: '',
     vehicleNo: '',
     driverLicenseNo: '',
     consentAgree: true
@@ -152,23 +153,41 @@ const DeliveryPartnerRegister = () => {
             <hr style={{ margin: '2rem 0', border: 'none', borderTop: '2px solid #e2e8f0' }} />
             <h3 style={{ marginTop: 0 }}>Vehicle Details</h3>
 
-            <Input
-              label="Vehicle Number"
-              type="text"
-              name="vehicleNo"
-              value={formData.vehicleNo}
+            <Select
+              label="Vehicle Type"
+              name="vehicleType"
+              value={formData.vehicleType}
               onChange={handleChange}
-              placeholder="MH01XX1234"
+              options={[
+                { value: 'cycle', label: '🚴 Cycle' },
+                { value: 'bike', label: '🏍️ Bike/Motorcycle' }
+              ]}
+              required
             />
 
-            <Input
-              label="Driver License Number"
-              type="text"
-              name="driverLicenseNo"
-              value={formData.driverLicenseNo}
-              onChange={handleChange}
-              placeholder="DL1234567890"
-            />
+            {formData.vehicleType === 'bike' && (
+              <>
+                <Input
+                  label="Vehicle Number"
+                  type="text"
+                  name="vehicleNo"
+                  value={formData.vehicleNo}
+                  onChange={handleChange}
+                  placeholder="MH01XX1234"
+                  required
+                />
+
+                <Input
+                  label="Driver License Number"
+                  type="text"
+                  name="driverLicenseNo"
+                  value={formData.driverLicenseNo}
+                  onChange={handleChange}
+                  placeholder="DL1234567890"
+                  required
+                />
+              </>
+            )}
 
             <Input
               label="Profile Picture"

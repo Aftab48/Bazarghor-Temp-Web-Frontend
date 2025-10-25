@@ -92,17 +92,28 @@ const DeliveryPartnerProfile = () => {
                   <h3>Vehicle Information</h3>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
                     <div>
-                      <strong style={{ color: '#718096', fontSize: '0.9rem' }}>Vehicle Number:</strong>
+                      <strong style={{ color: '#718096', fontSize: '0.9rem' }}>Vehicle Type:</strong>
                       <div style={{ fontSize: '1.1rem', marginTop: '0.25rem' }}>
-                        {profile.vehicleDetails.vehicleNo || 'N/A'}
+                        {profile.vehicleDetails.vehicleType === 'cycle' ? '🚴 Cycle' : 
+                         profile.vehicleDetails.vehicleType === 'bike' ? '🏍️ Bike/Motorcycle' : 'N/A'}
                       </div>
                     </div>
-                    <div>
-                      <strong style={{ color: '#718096', fontSize: '0.9rem' }}>Driver License:</strong>
-                      <div style={{ fontSize: '1.1rem', marginTop: '0.25rem' }}>
-                        {profile.vehicleDetails.driverLicenseNo || 'N/A'}
-                      </div>
-                    </div>
+                    {profile.vehicleDetails.vehicleType === 'bike' && (
+                      <>
+                        <div>
+                          <strong style={{ color: '#718096', fontSize: '0.9rem' }}>Vehicle Number:</strong>
+                          <div style={{ fontSize: '1.1rem', marginTop: '0.25rem' }}>
+                            {profile.vehicleDetails.vehicleNo || 'N/A'}
+                          </div>
+                        </div>
+                        <div>
+                          <strong style={{ color: '#718096', fontSize: '0.9rem' }}>Driver License:</strong>
+                          <div style={{ fontSize: '1.1rem', marginTop: '0.25rem' }}>
+                            {profile.vehicleDetails.driverLicenseNo || 'N/A'}
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </>
               )}
