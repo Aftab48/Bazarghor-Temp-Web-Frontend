@@ -5,23 +5,12 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { api } from '../../config/api';
-import { setAuthData } from '../../utils/auth';
 
-const AdminLogin = () => {
+const AdminForgotPassword = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,36 +18,22 @@ const AdminLogin = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await api.admin.login(formData);
+      const response = await api.admin.forgotPassword({ email });
       
       if (response.data) {
-        setMessage({ type: 'success', text: 'Login successful!' });
+        setMessage({ 
+          type: 'success', 
+          text: 'OTP sent to your email! Redirecting to reset password page...' 
+        });
         
-        // Store auth data
-        if (response.data.data?.token) {
-          const userData = {
-            id: response.data.data.id,
-            email: response.data.data.email,
-            mobNo: response.data.data.mobNo,
-            name: response.data.data.name,
-            roles: response.data.data.roles
-          };
-          
-          setAuthData(
-            response.data.data.token,
-            userData,
-            response.data.data.refreshToken
-          );
-        }
-
         setTimeout(() => {
-          navigate('/admin/dashboard');
-        }, 1000);
+          navigate('/admin/reset-password', { state: { email } });
+        }, 2000);
       }
     } catch (error) {
       setMessage({
         type: 'error',
-        text: error.response?.data?.message || 'Login failed. Please try again.'
+        text: error.response?.data?.message || 'Failed to send OTP. Please try again.'
       });
     } finally {
       setLoading(false);
@@ -68,25 +43,15 @@ const AdminLogin = () => {
   return (
     <Layout>
       <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-        <Card title="👨‍💼 Admin Login">
+        <Card title="🔐 Admin Forgot Password">
           <form onSubmit={handleSubmit}>
             <Input
               label="Email"
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@bazarghor.com"
-              required
-            />
-
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
               required
             />
 
@@ -104,7 +69,7 @@ const AdminLogin = () => {
             )}
 
             <Button type="submit" disabled={loading} style={{ width: '100%' }}>
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? 'Sending OTP...' : 'Send OTP'}
             </Button>
 
             <div style={{ 
@@ -114,7 +79,7 @@ const AdminLogin = () => {
             }}>
               <button
                 type="button"
-                onClick={() => navigate('/admin/forgot-password')}
+                onClick={() => navigate('/admin/login')}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -124,7 +89,7 @@ const AdminLogin = () => {
                   padding: '0.5rem'
                 }}
               >
-                Forgot Password?
+                ← Back to Login
               </button>
             </div>
           </form>
@@ -138,7 +103,10 @@ const AdminLogin = () => {
           }}>
             <strong>📋 API Endpoint:</strong>
             <div style={{ fontFamily: 'monospace', marginTop: '0.5rem' }}>
-              POST /api/admin/login
+              POST /api/admin/forget-password
+            </div>
+            <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#4a5568' }}>
+              Sends an OTP to the admin&apos;s email address for password reset
             </div>
           </div>
         </Card>
@@ -147,5 +115,5 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminForgotPassword;
 

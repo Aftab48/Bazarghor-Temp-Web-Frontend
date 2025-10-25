@@ -74,6 +74,8 @@ export const api = {
   admin: {
     login: (data) => apiClient.post('/admin/login', data),
     logout: () => apiClient.post('/admin/logout'),
+    forgotPassword: (data) => apiClient.post('/admin/forget-password', data),
+    resetPassword: (data) => apiClient.post('/admin/reset-password', data),
   },
 
   // Customer endpoints

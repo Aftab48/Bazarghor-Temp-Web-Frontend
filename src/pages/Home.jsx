@@ -11,6 +11,8 @@ const Home = () => {
       items: [
         { path: '/admin/login', label: 'Admin Login', method: 'POST' },
         { path: '/admin/dashboard', label: 'Admin Dashboard', method: 'GET' },
+        { path: '/admin/forgot-password', label: 'Forgot Password', method: 'POST' },
+        { path: '/admin/reset-password', label: 'Reset Password', method: 'POST' },
       ]
     },
     {
