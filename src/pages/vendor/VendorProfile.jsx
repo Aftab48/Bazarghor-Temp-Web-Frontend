@@ -115,9 +115,17 @@ const VendorProfile = () => {
                 </>
               )}
 
-              <Button onClick={() => navigate('/vendor/update-profile')}>
-                Edit Profile
-              </Button>
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+                <Button onClick={() => navigate('/vendor/update-profile')}>
+                  Edit Profile
+                </Button>
+                <Button 
+                  onClick={() => navigate('/vendor/products')}
+                  variant="success"
+                >
+                  Manage Products
+                </Button>
+              </div>
             </div>
           ) : (
             <div style={{ textAlign: 'center', padding: '2rem', color: '#718096' }}>

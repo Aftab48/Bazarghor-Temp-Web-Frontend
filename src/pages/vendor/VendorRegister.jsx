@@ -56,11 +56,17 @@ const VendorRegister = () => {
     try {
       const formDataToSend = new FormData();
       
-      Object.keys(formData).forEach(key => {
-        if (formData[key]) {
-          formDataToSend.append(key, formData[key]);
-        }
-      });
+      // Map form fields to backend expected field names
+      if (formData.firstName) formDataToSend.append('firstName', formData.firstName);
+      if (formData.lastName) formDataToSend.append('lastName', formData.lastName);
+      if (formData.mobNo) formDataToSend.append('mobNo', formData.mobNo);
+      if (formData.email) formDataToSend.append('email', formData.email);
+      if (formData.gender) formDataToSend.append('gender', formData.gender);
+      if (formData.pincode) formDataToSend.append('pinCode', formData.pincode);
+      
+      // Map store fields to backend expected names
+      if (formData.shopname) formDataToSend.append('storeName', formData.shopname);
+      if (formData.shopaddress) formDataToSend.append('storeAddress', formData.shopaddress);
 
       if (files.profilePicture) {
         formDataToSend.append('profilePicture', files.profilePicture);

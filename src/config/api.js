@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Base API URL - update this based on your backend server
-const BASE_URL = 'https://private-bazarghor-backend-for-testing-production.up.railway.app/api';
+// Base API URL - use localhost in development, production URL otherwise
+const BASE_URL = import.meta.env.DEV 
+  ? 'http://localhost:5000/api'
+  : 'https://private-bazarghor-backend-for-testing-production.up.railway.app/api';
 
 // Create axios instance with default config
 const apiClient = axios.create({
@@ -76,6 +78,71 @@ export const api = {
     logout: () => apiClient.post('/admin/logout'),
     forgotPassword: (data) => apiClient.post('/admin/forget-password', data),
     resetPassword: (data) => apiClient.post('/admin/reset-password', data),
+    getProfile: () => apiClient.get('/admin/profile'),
+    updateProfile: (formData) => apiClient.put('/admin/update', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    changePassword: (id, data) => apiClient.post(`/admin/change-password/${id}`, data),
+  },
+  
+  // Staff Management endpoints (Admin only)
+  staff: {
+    // Admin Management
+    createAdmin: (formData) => apiClient.post('/staff/add-admin', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAllAdmins: () => apiClient.get('/staff/get-all-admin'),
+    getAdminById: (id) => apiClient.get(`/staff/get-adminById/${id}`),
+    updateAdmin: (id, formData) => apiClient.put(`/staff/update-admin/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    deleteAdmin: (id) => apiClient.delete(`/staff/delete-admin/${id}`),
+    updateSelfAdmin: (formData) => apiClient.put('/staff/update-admin', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAdminProfile: () => apiClient.get('/staff/get-admin-profile'),
+    getSubAdminProfile: () => apiClient.get('/staff/get-sub-admin-profile'),
+    updateSubAdmin: (formData) => apiClient.put('/staff/update-sub-admin', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    changeAdminPassword: (id, data) => apiClient.post(`/staff/admin-change-password/${id}`, data),
+    changeSubAdminPassword: (id, data) => apiClient.post(`/staff/sub-admin-change-password/${id}`, data),
+    
+    // User Management
+    verifyUserStatus: (userId, data) => apiClient.put(`/users/verify-status/${userId}`, data),
+    
+    // Vendor Management
+    createVendor: (formData) => apiClient.post('/users/create-vendor', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAllVendors: () => apiClient.get('/users/get-vendor-list'),
+    getVendorById: (id) => apiClient.get(`/users/get-vendor/${id}`),
+    updateVendor: (id, formData) => apiClient.put(`/users/update-vendor/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    deleteVendor: (id) => apiClient.delete(`/users/delete-vendor/${id}`),
+    
+    // Delivery Partner Management
+    createDeliveryPartner: (formData) => apiClient.post('/users/create-delivery-partner', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAllDeliveryPartners: () => apiClient.get('/users/get-delivery-partner-list'),
+    getDeliveryPartnerById: (id) => apiClient.get(`/users/get-delivery-partner/${id}`),
+    updateDeliveryPartner: (id, formData) => apiClient.put(`/users/update-delivery-partner/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    deleteDeliveryPartner: (id) => apiClient.delete(`/users/delete-delivery-partner/${id}`),
+    
+    // Customer Management
+    createCustomer: (formData) => apiClient.post('/users/create-customer', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAllCustomers: () => apiClient.get('/users/get-customer-list'),
+    getCustomerById: (id) => apiClient.get(`/users/get-customer/${id}`),
+    updateCustomer: (id, formData) => apiClient.put(`/users/update-customer/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    deleteCustomer: (id) => apiClient.delete(`/users/delete-customer/${id}`),
   },
 
   // Customer endpoints
@@ -133,6 +200,20 @@ export const api = {
     verifyRegistrationOTP: (data) => apiClient.post('/otp/verify-otp-registration', data),
     verifyLogin: (data) => apiClient.post('/otp/verify-login', data),
     resend: (data) => apiClient.post('/otp/resend', data),
+  },
+  
+  // Product endpoints
+  products: {
+    create: (formData) => apiClient.post('/products/create', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    getAll: (params = {}) => apiClient.get('/products', { params }),
+    getById: (id) => apiClient.get(`/products/${id}`),
+    update: (id, formData) => apiClient.put(`/products/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    delete: (id) => apiClient.delete(`/products/${id}`),
+    getCategories: () => apiClient.get('/products/categories/list'),
   },
 };
 

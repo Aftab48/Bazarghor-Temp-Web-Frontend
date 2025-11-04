@@ -36,6 +36,9 @@ const Home = () => {
         { path: '/vendor/login', label: 'Vendor Login (OTP)', method: 'POST' },
         { path: '/vendor/profile', label: 'View Profile', method: 'GET' },
         { path: '/vendor/update-profile', label: 'Update Profile', method: 'PUT' },
+        { path: '/vendor/products', label: 'Product List', method: 'GET' },
+        { path: '/vendor/products/create', label: 'Create Product', method: 'POST' },
+        { path: '/vendor/products/:id', label: 'Inventory Management', method: 'PUT/DELETE' },
       ]
     },
     {
@@ -179,8 +182,11 @@ const Home = () => {
           <div style={{ marginBottom: '0.5rem' }}>
             <strong style={{ color: '#cbd5e0' }}>Delivery Partner:</strong> /api/delivery-partner
           </div>
-          <div>
+          <div style={{ marginBottom: '0.5rem' }}>
             <strong style={{ color: '#cbd5e0' }}>OTP:</strong> /api/otp
+          </div>
+          <div>
+            <strong style={{ color: '#cbd5e0' }}>Products:</strong> /api/products
           </div>
         </div>
       </Card>

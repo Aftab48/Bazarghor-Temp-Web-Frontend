@@ -173,6 +173,24 @@ const AdminDashboard = () => {
             <strong>ℹ️ Note:</strong> This data is loaded from your current login session
           </div>
 
+          <div style={{ 
+            display: 'grid', 
+            gap: '1rem', 
+            marginBottom: '1.5rem' 
+          }}>
+            <Button 
+              onClick={() => navigate('/admin/vendors')}
+              style={{ 
+                width: '100%',
+                background: 'linear-gradient(135deg, #ed8936 0%, #dd6b20 100%)',
+                fontSize: '1rem',
+                fontWeight: '600'
+              }}
+            >
+              🏪 Manage Vendors
+            </Button>
+          </div>
+
           <Button 
             onClick={handleLogout}
             style={{ 

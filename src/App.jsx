@@ -8,6 +8,8 @@ import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminForgotPassword from './pages/admin/AdminForgotPassword';
 import AdminResetPassword from './pages/admin/AdminResetPassword';
+import AdminVendorManagement from './pages/admin/AdminVendorManagement';
+import AdminVendorDetail from './pages/admin/AdminVendorDetail';
 
 // Customer Pages
 import CustomerRegister from './pages/customer/CustomerRegister';
@@ -21,6 +23,8 @@ import VendorRegister from './pages/vendor/VendorRegister';
 import VendorLogin from './pages/vendor/VendorLogin';
 import VendorProfile from './pages/vendor/VendorProfile';
 import VendorUpdateProfile from './pages/vendor/VendorUpdateProfile';
+import ProductList from './pages/vendor/ProductList';
+import ProductInventory from './pages/vendor/ProductInventory';
 
 // Delivery Partner Pages
 import DeliveryPartnerRegister from './pages/deliveryPartner/DeliveryPartnerRegister';
@@ -43,6 +47,8 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
         <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+        <Route path="/admin/vendors" element={<AdminVendorManagement />} />
+        <Route path="/admin/vendors/:id" element={<AdminVendorDetail />} />
 
         {/* Customer Routes */}
         <Route path="/customer/register" element={<CustomerRegister />} />
@@ -56,6 +62,9 @@ function App() {
         <Route path="/vendor/login" element={<VendorLogin />} />
         <Route path="/vendor/profile" element={<VendorProfile />} />
         <Route path="/vendor/update-profile" element={<VendorUpdateProfile />} />
+        <Route path="/vendor/products" element={<ProductList />} />
+        <Route path="/vendor/products/create" element={<ProductInventory />} />
+        <Route path="/vendor/products/:id" element={<ProductInventory />} />
 
         {/* Delivery Partner Routes */}
         <Route path="/delivery-partner/register" element={<DeliveryPartnerRegister />} />
