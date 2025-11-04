@@ -25,12 +25,41 @@ const ProductInventory = () => {
   const [productImages, setProductImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
+  const [storeId, setStoreId] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
       navigate('/vendor/login');
       return;
     }
+
+    // Fetch vendor profile to get store ID
+    const fetchVendorProfile = async () => {
+      try {
+        const res = await api.vendor.getProfile();
+        if (res.data.code === 'SUCCESS' && res.data.data?.storeDetails) {
+          // Store ID can be either the _id of populated storeDetails or the storeDetails itself if it's just an ObjectId
+          const store = res.data.data.storeDetails;
+          // Handle both cases: populated object with _id or just the ObjectId string
+          const storeIdValue = (store && typeof store === 'object' && store._id) ? store._id : store;
+          if (storeIdValue) {
+            setStoreId(storeIdValue);
+            setFormData(prev => ({ ...prev, storeId: storeIdValue }));
+          } else {
+            alert('Store information not found. Please complete your vendor profile.');
+            navigate('/vendor/profile');
+          }
+        } else {
+          alert('Store information not found. Please complete your vendor profile.');
+          navigate('/vendor/profile');
+        }
+      } catch (err) {
+        console.error('Error fetching vendor profile:', err);
+        alert('Failed to load vendor profile. Please try again.');
+      }
+    };
+
+    fetchVendorProfile();
 
     // Load categories
     api.products.getCategories()
@@ -61,8 +90,16 @@ const ProductInventory = () => {
           category: product.category || '',
           subcategory: product.subcategory || '',
           status: product.status || 'in_stock',
-          storeId: product.storeId?._id || product.storeId || '',
+          storeId: product.storeId?._id || product.storeId || storeId || '',
         });
+        
+        // Update storeId if not already set
+        if (product.storeId?._id || product.storeId) {
+          const productStoreId = product.storeId?._id || product.storeId;
+          if (!storeId) {
+            setStoreId(productStoreId);
+          }
+        }
         if (product.productImages && product.productImages.length > 0) {
           setExistingImages(product.productImages);
         }
@@ -106,6 +143,14 @@ const ProductInventory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate store ID is available
+    if (!storeId) {
+      alert('Store information not found. Please complete your vendor profile.');
+      navigate('/vendor/profile');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -119,7 +164,7 @@ const ProductInventory = () => {
         submitData.append('subcategory', formData.subcategory);
       }
       submitData.append('status', formData.status);
-      submitData.append('storeId', formData.storeId);
+      submitData.append('storeId', storeId);
 
       // Append images
       productImages.forEach((file) => {
@@ -496,15 +541,6 @@ const ProductInventory = () => {
             value={formData.subcategory}
             onChange={handleInputChange}
             options={subcategoryOptions}
-          />
-
-          <Input
-            label="Store ID"
-            name="storeId"
-            value={formData.storeId}
-            onChange={handleInputChange}
-            required
-            placeholder="Enter Store ID"
           />
 
           <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
