@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 // Base API URL - use localhost in development, production URL otherwise
-const BASE_URL = import.meta.env.DEV 
-  ? 'http://localhost:5000/api'
-  : 'https://private-bazarghor-backend-for-testing-production.up.railway.app/api';
+const BASE_URL = "https://private-bazarghor-backend-for-testing.onrender.com/api";
 
 // Create axios instance with default config
 const apiClient = axios.create({
