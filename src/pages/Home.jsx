@@ -227,7 +227,7 @@ const Home = () => {
         >
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Base URL:</strong>{" "}
-            https://localhost:5000/api
+            https://1f0fc11cfee2.ngrok-free.app/api
           </div>
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Admin:</strong> /api/admin
@@ -255,12 +255,10 @@ const Home = () => {
             /api/delivery-order
           </div>
           <div style={{ marginBottom: "0.5rem" }}>
-            <strong style={{ color: "#cbd5e0" }}>Store:</strong>{" "}
-            /api/store
+            <strong style={{ color: "#cbd5e0" }}>Store:</strong> /api/store
           </div>
           <div>
-            <strong style={{ color: "#cbd5e0" }}>Mappls:</strong>{" "}
-            /api/mappls
+            <strong style={{ color: "#cbd5e0" }}>Mappls:</strong> /api/mappls
           </div>
         </div>
       </Card>
