@@ -226,8 +226,7 @@ const Home = () => {
           }}
         >
           <div style={{ marginBottom: "0.5rem" }}>
-            <strong style={{ color: "#cbd5e0" }}>Base URL:</strong>{" "}
-            https://1f0fc11cfee2.ngrok-free.app/api
+            <strong style={{ color: "#cbd5e0" }}>Base URL:</strong> {import.meta.env.VITE_API_BASE_URL || "https://c5dbc48a5934.ngrok-free.app/api"}
           </div>
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Admin:</strong> /api/admin
