@@ -8,7 +8,11 @@ A comprehensive React-based frontend testing interface for the BazarGhor backend
 - **Customer Portal**: Registration, OTP-based login, profile management, and address management
 - **Vendor Portal**: Registration, OTP-based login, profile management with store details
 - **Delivery Partner Portal**: Registration, OTP-based login, profile management with vehicle details
-- **OTP Services**: Comprehensive OTP testing interface
+- **Customer Cart & Orders**: Dedicated playgrounds for `/api/customers/cart/*` and `/api/customers/order/*`
+- **Vendor & Admin Ops**: Vendor order console, subscription management, admin order history explorer
+- **Store & Discovery**: Unified screen for vendor toggles, admin store CRUD, and customer store/products feed
+- **Mappls Playground**: Test autosuggest, geocode, and reverse geocode via `/api/mappls/*`
+- **OTP + Messaging Services**: Comprehensive OTP interface plus WhatsApp/email notification tester
 - **Modern UI**: Beautiful gradient design with smooth animations
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **File Upload Support**: Handle profile pictures and multiple file uploads
@@ -90,29 +94,49 @@ bazarghor-backend-test/
 ## 🔗 Available Routes
 
 ### Admin
-- `/admin/login` - Admin login page
+- `/admin/login` – Admin login page
+- `/admin/dashboard` – Snapshot of profile and quick actions
+- `/admin/vendors` – Review/approve vendor onboarding requests
+- `/admin/orders` – Inspect vendor order queues and history (`/api/admin/order*`)
+- `/admin/vendor-subscriptions` – Create, assign, renew, and cancel vendor plans
 
 ### Customer
-- `/customer/register` - Customer registration
-- `/customer/login` - Customer OTP-based login
-- `/customer/profile` - View customer profile
-- `/customer/update-profile` - Update customer profile
-- `/customer/address` - Manage customer addresses
+- `/customer/register` – Customer registration flow
+- `/customer/login` – OTP-based authentication
+- `/customer/profile` – View customer profile
+- `/customer/update-profile` – Update profile information
+- `/customer/address` – Manage saved addresses
+- `/customer/cart` – Full cart playground for `/api/customers/cart/*`
+- `/customer/orders` – Create orders, inspect history, update payment status
 
 ### Vendor
-- `/vendor/register` - Vendor registration
-- `/vendor/login` - Vendor OTP-based login
-- `/vendor/profile` - View vendor profile
-- `/vendor/update-profile` - Update vendor profile
+- `/vendor/register` – Vendor onboarding
+- `/vendor/login` – Vendor OTP login + verification
+- `/vendor/profile` – View vendor profile & store details
+- `/vendor/update-profile` – Update vendor profile
+- `/vendor/products` – Product list
+- `/vendor/products/create` – Create product (also used for editing)
+- `/vendor/orders` – Accept/decline marketplace orders and inspect details
+- `/vendor/subscriptions` – Purchase/renew vendor subscriptions
 
 ### Delivery Partner
-- `/delivery-partner/register` - Delivery partner registration
-- `/delivery-partner/login` - Delivery partner OTP-based login
-- `/delivery-partner/profile` - View delivery partner profile
-- `/delivery-partner/update-profile` - Update delivery partner profile
+- `/delivery-partner/register` – Delivery partner registration
+- `/delivery-partner/login` – Delivery OTP login
+- `/delivery-partner/profile` – View partner profile
+- `/delivery-partner/update-profile` – Update partner profile
+- `/delivery-partner/orders` – Respond/pickup/deliver and view stats
+
+### Store & Discovery
+- `/store/manage` – Vendor open/close, admin store CRUD, customer store/product exploration
+
+### Mappls & Location
+- `/mappls/playground` – Autosuggest, geocode, and reverse geocode tester
 
 ### OTP Services
-- `/otp/*` - OTP testing interface (all OTP endpoints)
+- `/otp/*` – Comprehensive OTP interface
+
+### Messaging & Notifications
+- `/whatsapp/test` – Trigger WhatsApp + email notifications (admin + user creation flows)
 
 ## 🔐 Authentication
 
@@ -133,6 +157,11 @@ All API endpoints are configured in `src/config/api.js`:
 - **Vendors**: `/api/vendors/*`
 - **Delivery Partners**: `/api/delivery-partner/*`
 - **OTP**: `/api/otp/*`
+- **Staff & Users**: `/api/staff/*`, `/api/users/*`
+- **Products**: `/api/products/*`
+- **Store & Customer Discovery**: `/api/store/*`, `/api/customers/store/*`
+- **Delivery Orders**: `/api/delivery-order/*`
+- **Mappls**: `/api/mappls/*`
 
 ## 🎨 UI Components
 

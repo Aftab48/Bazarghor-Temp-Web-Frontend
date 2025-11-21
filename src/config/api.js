@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL - use localhost in development, production URL otherwise
-const BASE_URL = "https://private-bazarghor-backend-for-testing.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 // Create axios instance with default config
 const apiClient = axios.create({
@@ -10,6 +10,7 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true, // Important for cookie-based auth
+  timeout: 30000, // 30 seconds timeout
 });
 
 // Request interceptor to add token to headers
@@ -200,18 +201,111 @@ export const api = {
     resend: (data) => apiClient.post('/otp/resend', data),
   },
   
-  // Product endpoints
+  // Product endpoints (Vendor)
   products: {
-    create: (formData) => apiClient.post('/products/create', formData, {
+    create: (formData) => apiClient.post('/products/add-product', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     }),
-    getAll: (params = {}) => apiClient.get('/products', { params }),
-    getById: (id) => apiClient.get(`/products/${id}`),
-    update: (id, formData) => apiClient.put(`/products/${id}`, formData, {
+    getAll: (params = {}) => apiClient.get('/products/get-products-list', { params }),
+    getById: (id) => apiClient.get(`/products/get-productsById/${id}`),
+    update: (id, formData) => apiClient.put(`/products/update-productsById/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     }),
-    delete: (id) => apiClient.delete(`/products/${id}`),
+    delete: (id) => apiClient.delete(`/products/delete-products/${id}`),
     getCategories: () => apiClient.get('/products/categories/list'),
+    
+    // Admin product endpoints
+    admin: {
+      create: (formData) => apiClient.post('/products/admin/add-product', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }),
+      getAll: (params = {}) => apiClient.get('/products/admin/get-products-list', { params }),
+      getById: (id) => apiClient.get(`/products/admin/get-product/${id}`),
+      update: (id, formData) => apiClient.put(`/products/admin/update-product/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }),
+      delete: (id) => apiClient.delete(`/products/admin/delete-product/${id}`),
+    },
+  },
+
+  // Cart endpoints (Customer)
+  cart: {
+    addToCart: (data) => apiClient.post('/customers/cart/add-to-cart', data),
+    getCart: () => apiClient.get('/customers/cart/get-cart'),
+    updateItem: (productId, data) => apiClient.put(`/customers/cart/update-item/${productId}`, data),
+    removeItem: (productId) => apiClient.delete(`/customers/cart/remove-item/${productId}`),
+  },
+
+  // Order endpoints (Customer)
+  orders: {
+    create: (data) => apiClient.post('/customers/order/create', data),
+    getAll: () => apiClient.get('/customers/order/list'),
+    getById: (orderId) => apiClient.get(`/customers/order/get-order/${orderId}`),
+    getHistory: (orderId) => apiClient.get(`/customers/order/get-order-history/${orderId}/history`),
+    addHistory: (orderId, data) => apiClient.post(`/customers/order/${orderId}/history`, data),
+    updatePayment: (orderId, data) => apiClient.post(`/customers/order/${orderId}/payment`, data),
+  },
+
+  // Store endpoints
+  store: {
+    // Customer store endpoints
+    customer: {
+      getOpenStores: (params = {}) => apiClient.get('/customers/store/open-stores', { params }),
+      getStoreProducts: (storeId) => apiClient.get(`/customers/store/products/${storeId}`),
+    },
+    // Vendor/Admin store endpoints
+    toggleStatus: (storeId, data) => apiClient.put(`/store/${storeId}/open-close`, data),
+    // Admin store endpoints
+    admin: {
+      getAll: (params = {}) => apiClient.get('/store/admin/get-store', { params }),
+      getById: (id) => apiClient.get(`/store/admin/get-store-by-id/${id}`),
+      update: (id, data) => apiClient.put(`/store/admin/update-store-by-id/${id}`, data),
+    },
+  },
+
+  // Vendor order endpoints
+  vendorOrders: {
+    respond: (orderId, data) => apiClient.post(`/vendors/order/${orderId}/respond`, data),
+    getAll: () => apiClient.get('/vendors/orders'),
+    getById: (orderId) => apiClient.get(`/vendors/order/${orderId}`),
+  },
+
+  // Vendor subscription endpoints
+  vendorSubscription: {
+    purchase: (data) => apiClient.post('/vendors/purchase-subscription', data),
+    getMySubscriptions: () => apiClient.get('/vendors/get-subscription'),
+    renew: (id, data) => apiClient.put(`/vendors/renew-subscription/${id}`, data),
+  },
+
+  // Delivery Partner order endpoints
+  deliveryOrders: {
+    respond: (orderId, data) => apiClient.post(`/delivery-order/respond-order/${orderId}`, data),
+    pickup: (orderId, data) => apiClient.put(`/delivery-order/pickup-order/${orderId}`, data),
+    deliver: (orderId, data) => apiClient.put(`/delivery-order/deliver-order/${orderId}`, data),
+    getMyStats: () => apiClient.get('/delivery-order/my-stats'),
+  },
+
+  // Admin order endpoints
+  adminOrders: {
+    getOrdersByVendor: (vendorId) => apiClient.get(`/admin/orders/vendor/${vendorId}`),
+    getOrderHistory: (orderId) => apiClient.get(`/admin/order/${orderId}/history`),
+  },
+
+  // Admin vendor subscription endpoints
+  adminVendorSubscription: {
+    create: (data) => apiClient.post('/admin/vendor-subscription', data),
+    getAll: () => apiClient.get('/admin/vendor-subscription'),
+    getById: (id) => apiClient.get(`/admin/vendor-subscription/${id}`),
+    assign: (subscriptionId, data) => apiClient.put(`/admin/vendor-subscription/${subscriptionId}/assign`, data),
+    renew: (id, data) => apiClient.put(`/admin/vendor-subscription/${id}/renew`, data),
+    cancel: (id) => apiClient.delete(`/admin/cancel-vendor-subscription/${id}`),
+  },
+
+  // Mappls endpoints (location services)
+  mappls: {
+    autosuggest: (params = {}) => apiClient.get('/mappls/places/autosuggest', { params }),
+    geocode: (params = {}) => apiClient.get('/mappls/places/geocode', { params }),
+    reverseGeocode: (params = {}) => apiClient.get('/mappls/places/reverse-geocode', { params }),
   },
 };
 

@@ -9,60 +9,92 @@ const Home = () => {
       icon: '👨‍💼',
       color: '#667eea',
       items: [
-        { path: '/admin/login', label: 'Admin Login', method: 'POST' },
-        { path: '/admin/dashboard', label: 'Admin Dashboard', method: 'GET' },
-        { path: '/admin/forgot-password', label: 'Forgot Password', method: 'POST' },
-        { path: '/admin/reset-password', label: 'Reset Password', method: 'POST' },
-      ]
+        { path: '/admin/login', label: 'Admin Login', method: 'POST /api/admin/login' },
+        { path: '/admin/dashboard', label: 'Admin Dashboard', method: 'GET /api/admin/profile' },
+        { path: '/admin/forgot-password', label: 'Forgot Password', method: 'POST /api/admin/forget-password' },
+        { path: '/admin/reset-password', label: 'Reset Password', method: 'POST /api/admin/reset-password' },
+        { path: '/admin/vendors', label: 'Vendor Management', method: 'GET/PUT /api/users/*' },
+        { path: '/admin/orders', label: 'Vendor Orders & History', method: 'GET /api/admin/order*' },
+        { path: '/admin/vendor-subscriptions', label: 'Vendor Subscription Hub', method: 'CRUD /api/admin/vendor-subscription*' },
+      ],
     },
     {
       category: 'Customer',
       icon: '🛍️',
       color: '#48bb78',
       items: [
-        { path: '/customer/register', label: 'Register Customer', method: 'POST' },
-        { path: '/customer/login', label: 'Customer Login (OTP)', method: 'POST' },
-        { path: '/customer/profile', label: 'View Profile', method: 'GET' },
-        { path: '/customer/update-profile', label: 'Update Profile', method: 'PUT' },
-        { path: '/customer/address', label: 'Manage Addresses', method: 'GET/POST/PUT/DELETE' },
-      ]
+        { path: '/customer/register', label: 'Register Customer', method: 'POST /api/customers/create-customer' },
+        { path: '/customer/login', label: 'Customer Login (OTP)', method: 'POST /api/customers/login' },
+        { path: '/customer/profile', label: 'View Profile', method: 'GET /api/customers/profile' },
+        { path: '/customer/update-profile', label: 'Update Profile', method: 'PUT /api/customers/update-profile' },
+        { path: '/customer/address', label: 'Manage Addresses', method: 'CRUD /api/customers/address*' },
+        { path: '/customer/cart', label: 'Cart Playground', method: 'CRUD /api/customers/cart/*' },
+        { path: '/customer/orders', label: 'Order Workflow', method: 'POST/GET /api/customers/order/*' },
+      ],
     },
     {
       category: 'Vendor',
       icon: '🏪',
       color: '#ed8936',
       items: [
-        { path: '/vendor/register', label: 'Register Vendor', method: 'POST' },
-        { path: '/vendor/login', label: 'Vendor Login (OTP)', method: 'POST' },
-        { path: '/vendor/profile', label: 'View Profile', method: 'GET' },
-        { path: '/vendor/update-profile', label: 'Update Profile', method: 'PUT' },
-        { path: '/vendor/products', label: 'Product List', method: 'GET' },
-        { path: '/vendor/products/create', label: 'Create Product', method: 'POST' },
-        { path: '/vendor/products/:id', label: 'Inventory Management', method: 'PUT/DELETE' },
-      ]
+        { path: '/vendor/register', label: 'Register Vendor', method: 'POST /api/vendors/create-vendor' },
+        { path: '/vendor/login', label: 'Vendor Login (OTP)', method: 'POST /api/vendors/login/*' },
+        { path: '/vendor/profile', label: 'View Profile', method: 'GET /api/vendors/profile' },
+        { path: '/vendor/update-profile', label: 'Update Profile', method: 'PUT /api/vendors/update-profile' },
+        { path: '/vendor/products', label: 'Product List', method: 'GET /api/products/get-products-list' },
+        { path: '/vendor/products/create', label: 'Create Product', method: 'POST /api/products/add-product' },
+        { path: '/vendor/products/:id', label: 'Inventory Management', method: 'PUT/DELETE /api/products/*' },
+        { path: '/vendor/orders', label: 'Vendor Orders', method: 'GET/POST /api/vendors/order*' },
+        { path: '/vendor/subscriptions', label: 'Vendor Subscriptions', method: 'POST/GET /api/vendors/*subscription*' },
+      ],
     },
     {
       category: 'Delivery Partner',
       icon: '🚚',
       color: '#f56565',
       items: [
-        { path: '/delivery-partner/register', label: 'Register Delivery Partner', method: 'POST' },
-        { path: '/delivery-partner/login', label: 'Delivery Partner Login (OTP)', method: 'POST' },
-        { path: '/delivery-partner/profile', label: 'View Profile', method: 'GET' },
-        { path: '/delivery-partner/update-profile', label: 'Update Profile', method: 'PUT' },
-      ]
+        { path: '/delivery-partner/register', label: 'Register Delivery Partner', method: 'POST /api/delivery-partner/create-delivery-partner' },
+        { path: '/delivery-partner/login', label: 'Delivery Partner Login (OTP)', method: 'POST /api/delivery-partner/login/*' },
+        { path: '/delivery-partner/profile', label: 'View Profile', method: 'GET /api/delivery-partner/profile' },
+        { path: '/delivery-partner/update-profile', label: 'Update Profile', method: 'PUT /api/delivery-partner/update-profile' },
+        { path: '/delivery-partner/orders', label: 'Delivery Order Flow', method: 'POST/PUT /api/delivery-order/*' },
+      ],
+    },
+    {
+      category: 'Store & Discovery',
+      icon: '🏬',
+      color: '#38b2ac',
+      items: [
+        { path: '/store/manage', label: 'Store Management & Discovery', method: 'PUT/GET /api/store/* & /api/customers/store/*' },
+      ],
+    },
+    {
+      category: 'Location Services',
+      icon: '🧭',
+      color: '#319795',
+      items: [
+        { path: '/mappls/playground', label: 'Mappls Playground', method: 'GET /api/mappls/*' },
+      ],
     },
     {
       category: 'OTP Services',
       icon: '🔐',
       color: '#9f7aea',
       items: [
-        { path: '/otp/send-registration', label: 'Send Registration OTP', method: 'POST' },
-        { path: '/otp/verify-registration', label: 'Verify Registration OTP', method: 'POST' },
-        { path: '/otp/verify-login', label: 'Verify Login OTP', method: 'POST' },
-        { path: '/otp/resend', label: 'Resend OTP', method: 'POST' },
-      ]
-    }
+        { path: '/otp/send-registration', label: 'Send Registration OTP', method: 'POST /api/otp/send-otp-registration' },
+        { path: '/otp/verify-registration', label: 'Verify Registration OTP', method: 'POST /api/otp/verify-otp-registration' },
+        { path: '/otp/verify-login', label: 'Verify Login OTP', method: 'POST /api/otp/verify-login' },
+        { path: '/otp/resend', label: 'Resend OTP', method: 'POST /api/otp/resend' },
+      ],
+    },
+    {
+      category: 'WhatsApp + Email Integration',
+      icon: '📱',
+      color: '#25d366',
+      items: [
+        { path: '/whatsapp/test', label: 'Test WhatsApp + Email Notifications', method: 'POST/PUT /api/admin & /api/users endpoints' },
+      ],
+    },
   ];
 
   return (
@@ -195,7 +227,7 @@ const Home = () => {
         >
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Base URL:</strong>{" "}
-            https://private-bazarghor-backend-for-testing.onrender.com/api
+            https://localhost:5000/api
           </div>
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Admin:</strong> /api/admin
@@ -214,9 +246,21 @@ const Home = () => {
           <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>OTP:</strong> /api/otp
           </div>
-          <div>
+          <div style={{ marginBottom: "0.5rem" }}>
             <strong style={{ color: "#cbd5e0" }}>Products:</strong>{" "}
             /api/products
+          </div>
+          <div style={{ marginBottom: "0.5rem" }}>
+            <strong style={{ color: "#cbd5e0" }}>Delivery Orders:</strong>{" "}
+            /api/delivery-order
+          </div>
+          <div style={{ marginBottom: "0.5rem" }}>
+            <strong style={{ color: "#cbd5e0" }}>Store:</strong>{" "}
+            /api/store
+          </div>
+          <div>
+            <strong style={{ color: "#cbd5e0" }}>Mappls:</strong>{" "}
+            /api/mappls
           </div>
         </div>
       </Card>
