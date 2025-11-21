@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL - use localhost in development, production URL otherwise
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://1f0fc11cfee2.ngrok-free.app/api";
 
 // Create axios instance with default config
 const apiClient = axios.create({
