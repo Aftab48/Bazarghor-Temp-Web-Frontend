@@ -272,12 +272,12 @@ export const api = {
       apiClient.delete(`/customers/cart/remove-item/${productId}`),
   },
 
-  // Order endpoints (Customer)
+  // Order endpoints (Customer) - Enhanced with map data support
   orders: {
     create: (data) => apiClient.post("/customers/order/create", data),
     getAll: () => apiClient.get("/customers/order/list"),
-    getById: (orderId) =>
-      apiClient.get(`/customers/order/get-order/${orderId}`),
+    getById: (orderId, params = {}) =>
+      apiClient.get(`/customers/order/get-order/${orderId}`, { params }),
     getHistory: (orderId) =>
       apiClient.get(`/customers/order/get-order-history/${orderId}/history`),
     addHistory: (orderId, data) =>
@@ -308,12 +308,13 @@ export const api = {
     },
   },
 
-  // Vendor order endpoints
+  // Vendor order endpoints - Enhanced with map data support
   vendorOrders: {
     respond: (orderId, data) =>
-      apiClient.post(`/vendors/order/${orderId}/respond`, data),
-    getAll: () => apiClient.get("/vendors/orders"),
-    getById: (orderId) => apiClient.get(`/vendors/order/${orderId}`),
+      apiClient.post(`/vendor-order/respond-to-order/${orderId}`, data),
+    getAll: () => apiClient.get("/vendor-order/get-orders"),
+    getById: (orderId, params = {}) =>
+      apiClient.get(`/vendor-order/get-order/${orderId}`, { params }),
   },
 
   // Vendor subscription endpoints
@@ -358,7 +359,7 @@ export const api = {
     cancel: (id) => apiClient.delete(`/admin/cancel-vendor-subscription/${id}`),
   },
 
-  // Mappls endpoints (location services)
+  // Mappls endpoints (location services) - deprecated
   mappls: {
     autosuggest: (params = {}) =>
       apiClient.get("/mappls/places/autosuggest", { params }),
@@ -367,6 +368,35 @@ export const api = {
     reverseGeocode: (params = {}) =>
       apiClient.get("/mappls/places/reverse-geocode", { params }),
   },
+
+  // Google Maps endpoints (location services)
+  googleMaps: {
+    autocomplete: (params = {}) =>
+      apiClient.get("/google-maps/places/autocomplete", { params }),
+    geocode: (params = {}) =>
+      apiClient.get("/google-maps/places/geocode", { params }),
+    reverseGeocode: (params = {}) =>
+      apiClient.get("/google-maps/places/reverse-geocode", { params }),
+  },
+
+  // Delivery Partner location endpoints
+  deliveryLocation: {
+    updateLocation: (data) => apiClient.put("/delivery-partner/location", data),
+    getLocation: () => apiClient.get("/delivery-partner/location"),
+  },
+
+  // Delivery Partner route endpoints
+  deliveryRoute: {
+    getRoute: (orderId, params = {}) =>
+      apiClient.get(`/delivery-partner/route/${orderId}`, { params }),
+  },
+
+  // Delivery tracking endpoints
+  deliveryTracking: {
+    getTracking: (orderId) =>
+      apiClient.get(`/delivery/tracking/${orderId}`),
+  },
+
 };
 
 export default apiClient;

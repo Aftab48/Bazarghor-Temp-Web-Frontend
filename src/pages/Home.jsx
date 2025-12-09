@@ -73,7 +73,10 @@ const Home = () => {
       icon: '🧭',
       color: '#319795',
       items: [
-        { path: '/mappls/playground', label: 'Mappls Playground', method: 'GET /api/mappls/*' },
+        { path: '/mappls/playground', label: 'Mappls Playground (Deprecated)', method: 'GET /api/mappls/*' },
+        { path: '/google-maps/playground', label: 'Google Maps Playground', method: 'GET /api/google-maps/*' },
+        { path: '/google-maps/delivery-tracking', label: 'Delivery Tracking', method: 'GET /api/delivery/tracking/:orderId' },
+        { path: '/google-maps/delivery-partner', label: 'Delivery Partner Location & Route', method: 'PUT/GET /api/delivery-partner/location & route' },
       ],
     },
     {

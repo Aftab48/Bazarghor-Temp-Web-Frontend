@@ -46,6 +46,9 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminVendorSubscription from './pages/admin/AdminVendorSubscription';
 import StoreManagement from './pages/store/StoreManagement';
 import MapplsPlayground from './pages/mappls/MapplsPlayground';
+import GoogleMapsPlayground from './pages/googleMaps/GoogleMapsPlayground';
+import DeliveryTracking from './pages/googleMaps/DeliveryTracking';
+import DeliveryPartnerLocation from './pages/googleMaps/DeliveryPartnerLocation';
 
 function App() {
   return (
@@ -105,6 +108,11 @@ function App() {
         {/* Shared Utilities */}
         <Route path="/store/manage" element={<StoreManagement />} />
         <Route path="/mappls/playground" element={<MapplsPlayground />} />
+        
+        {/* Google Maps Routes */}
+        <Route path="/google-maps/playground" element={<GoogleMapsPlayground />} />
+        <Route path="/google-maps/delivery-tracking" element={<DeliveryTracking />} />
+        <Route path="/google-maps/delivery-partner" element={<DeliveryPartnerLocation />} />
       </Routes>
     </Router>
   );
